@@ -34,7 +34,8 @@ from section import Section
 
 
 def sort_critical_sections_in_pbx_file(pbx_file_path):
-    raw_lines = read_raw_lines(pbx_file_path)
+    original_lines = read_raw_lines(pbx_file_path)
+    raw_lines = list(original_lines)
 
     sort_lines_in_section(section_key='PBXBuildFile', lines=raw_lines)
     sort_lines_in_section(section_key='PBXFrameworksBuildPhase', lines=raw_lines)
@@ -44,7 +45,12 @@ def sort_critical_sections_in_pbx_file(pbx_file_path):
     sort_lines_in_section(section_key='PBXSourcesBuildPhase', lines=raw_lines)
     sort_lines_in_section(section_key='PBXHeadersBuildPhase', lines=raw_lines)
 
-    write_sorted_raw_lines(raw_lines, pbx_file_path)
+    # Only write back to original file if it is sorted
+    # to prevent unstable builds and tests in Xcode
+    if original_lines == raw_lines:
+        print 'File unmodified'
+    else:
+        write_sorted_raw_lines(raw_lines, pbx_file_path)
 
 
 def sort_lines_in_section(section_key, lines):
