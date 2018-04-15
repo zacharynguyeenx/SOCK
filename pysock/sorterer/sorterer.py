@@ -52,6 +52,7 @@ def sort_lines_in_section(section_key, lines):
 
     if section.start_line_index is None or section.end_line_index is None:
         AssertionError('Section %s does not contain starting or ending line index.' % section_key)
+        return
 
     section.records.sort(key=lambda x: x.name, reverse=False)
 

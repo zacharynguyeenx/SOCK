@@ -118,6 +118,9 @@ class Section(object):
             line_index += 1
 
     def feed_records(self, lines):
+        if self.start_line_index is None or self.end_line_index is None:
+            return
+
         line_index = self.start_line_index + 1
 
         while (line_index < self.end_line_index):
