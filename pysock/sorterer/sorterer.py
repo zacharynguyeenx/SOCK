@@ -60,7 +60,9 @@ def sort_lines_in_section(section_key, lines):
         AssertionError('Section %s does not contain starting or ending line index.' % section_key)
         return
 
-    section.records.sort(key=lambda x: x.name, reverse=False)
+    # Only sort deep records as new Xcode versions
+    # sort the records by ID already
+    # section.records.sort(key=lambda x: x.name, reverse=False)
 
     for record in section.records:
         for line in record.property_lines:
